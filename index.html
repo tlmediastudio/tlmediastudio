@@ -1,125 +1,355 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TL Media Studio – Fotograf i Stockholm</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TL Media Studio – Fotograf i Stockholm</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #f5f5f5;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-        }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: #e8ecef;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
 
-        .card {
-            background: white;
-            max-width: 900px;
-            width: 100%;
-            border-radius: 22px;
-            padding: 40px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
+    .shell {
+      max-width: 1100px;
+      width: 100%;
+      background: #f5f5f7;
+      border-radius: 32px;
+      padding: 40px 32px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .logo {
-            width: 120px;
-            margin-bottom: 20px;
-        }
+    /* diskret bakgrundsmönster */
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      background-image: radial-gradient(
+          circle at 0 0,
+          rgba(255, 255, 255, 0.6) 0,
+          rgba(255, 255, 255, 0.6) 1px,
+          transparent 1px
+        );
+      background-size: 80px 80px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
 
-        h1 {
-            margin: 0;
-            font-size: 38px;
-            font-weight: 700;
-        }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
 
-        h2 {
-            margin-top: 4px;
-            font-size: 22px;
-            font-weight: 400;
-            color: #333;
-        }
+    .hero {
+      background: #111111;
+      color: #ffffff;
+      border-radius: 28px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
 
-        p {
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+    .hero-logo {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      background: #1f1f1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            margin: 25px 0;
-        }
+    .hero-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
 
-        .btn {
-            padding: 14px 28px;
-            border-radius: 12px;
-            border: 2px solid black;
-            text-decoration: none;
-            font-size: 18px;
-            color: black;
-            transition: 0.2s;
-        }
+    .hero-text {
+      min-width: 220px;
+    }
 
-        .btn:hover {
-            background: black;
-            color: white;
-        }
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
 
-        .socials {
-            margin-top: 30px;
-            display: flex;
-            gap: 20px;
-        }
+    .hero-name {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 0 10px;
+      opacity: 0.9;
+    }
 
-        .socials a {
-            text-decoration: none;
-            font-size: 24px;
-            color: black;
-            transition: 0.2s;
-        }
+    .hero-sub {
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 0 20px;
+      opacity: 0.9;
+    }
 
-        .socials a:hover {
-            opacity: 0.6;
-        }
-    </style>
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: 1.8px solid #ffffff;
+      color: #ffffff;
+      background: transparent;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      gap: 8px;
+      transition: background 0.18s ease, color 0.18s ease,
+        transform 0.12s ease, box-shadow 0.18s ease;
+    }
+
+    .pill-btn span.icon {
+      font-size: 16px;
+    }
+
+    .pill-btn:hover {
+      background: #ffffff;
+      color: #111111;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28);
+    }
+
+    .pill-btn--solid {
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .pill-btn--solid:hover {
+      background: #f3f3f3;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      margin-top: 8px;
+    }
+
+    h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #111111;
+    }
+
+    p {
+      margin: 0;
+      color: #444;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .about {
+      padding-right: 16px;
+    }
+
+    .contact-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .contact-btn {
+      border-radius: 16px;
+      border: 1.8px solid #111111;
+      padding: 10px 22px;
+      background: #ffffff;
+      color: #111111;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.18s ease, transform 0.12s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .contact-btn:hover {
+      background: #111111;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .social-pill {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1.4px solid #bbbbbb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      text-decoration: none;
+      color: #333333;
+      background: #ffffff;
+      transition: background 0.18s ease, transform 0.12s ease,
+        box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .social-pill:hover {
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 800px) {
+      .shell {
+        padding: 24px 18px;
+        border-radius: 24px;
+      }
+
+      .hero {
+        padding: 22px 20px;
+        border-radius: 22px;
+      }
+
+      .hero-logo {
+        width: 90px;
+        height: 90px;
+        border-radius: 18px;
+      }
+
+      .hero-title {
+        font-size: 26px;
+      }
+
+      .hero-sub {
+        font-size: 14px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 16px;
+      }
+
+      .about {
+        padding-right: 0;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="card">
-        <img src="https://i.imgur.com/ICi49Cg.png" class="logo" alt="TL Media Studio Logo" />
+  <div class="shell">
+    <div class="content">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-logo">
+          <!-- Byt filnamn här om din logga heter något annat än logo.png -->
+          <img src="logo.png" alt="TL Media Studio logotyp" />
+        </div>
 
-        <h1>TL Media Studio</h1>
-        <h2>Tobias Larsson</h2>
-
-        <p>
+        <div class="hero-text">
+          <h1 class="hero-title">TL Media Studio</h1>
+          <p class="hero-name">Tobias Larsson</p>
+          <p class="hero-sub">
             Fotograf i Stockholm – porträtt, boudoir och kreativa projekt med trygg guidning
             och tidlös ljussättning.
-        </p>
+          </p>
 
-        <div class="btn-container">
-            <a href="mailto:Tobias@tlmediastudio.com" class="btn">Privatkund</a>
-            <a href="mailto:Tobias@tlmediastudio.com" class="btn">Företagskund</a>
+          <div class="hero-buttons">
+            <a href="mailto:Tobias@tlmediastudio.com?subject=Bokning%20privatkund"
+               class="pill-btn pill-btn--solid">
+              <span class="icon">📷</span>
+              Privatkund
+            </a>
+            <a href="mailto:Tobias@tlmediastudio.com?subject=Bokning%20företagskund"
+               class="pill-btn">
+              <span class="icon">🏢</span>
+              Företagskund
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNDERDEL: About + Kontakt -->
+      <section class="grid">
+        <div class="about">
+          <h3>About</h3>
+          <p>
+            Jag heter Tobias och driver TL Media Studio i södra Stockholm.
+            Jag skapar trygga, personliga och estetiska fotograferingar med fokus på ljus,
+            känsla och form. Oavsett om du vill ha porträtt, boudoir eller ett kreativt projekt
+            guidar jag dig genom hela processen.
+          </p>
         </div>
 
-        <h3>Kontakta mig</h3>
+        <div class="contact-section">
+          <div>
+            <h3>Get in touch</h3>
+            <div class="contact-buttons">
+              <a class="contact-btn"
+                 href="mailto:Tobias@tlmediastudio.com">
+                ✉️ Email
+              </a>
+              <a class="contact-btn"
+                 href="tel:+46708454044">
+                📞 Ring
+              </a>
+            </div>
+          </div>
 
-        <div class="btn-container">
-            <a href="mailto:Tobias@tlmediastudio.com" class="btn">Email</a>
-            <a href="tel:+46708454044" class="btn">Ring</a>
+          <div>
+            <div class="social-row">
+              <a class="social-pill" href="https://instagram.com/tlmediastudio" aria-label="Instagram">📸</a>
+              <a class="social-pill" href="https://linkedin.com" aria-label="LinkedIn">in</a>
+              <a class="social-pill" href="https://facebook.com/tlmediastudio" aria-label="Facebook">f</a>
+              <a class="social-pill" href="https://behance.net/tlmediastudio" aria-label="Behance">Bē</a>
+              <a class="social-pill" href="https://youpic.com/tlmediastudio" aria-label="YouPic">📷</a>
+            </div>
+          </div>
         </div>
-
-        <div class="socials">
-            <a href="https://instagram.com/tlmediastudio">📸</a>
-            <a href="https://linkedin.com/in/TobiasLarsson">💼</a>
-            <a href="https://facebook.com/tlmediastudio">📘</a>
-            <a href="https://behance.net/tlmediastudio">🎨</a>
-            <a href="https://youpic.com/tlmediastudio">📷</a>
-        </div>
+      </section>
     </div>
+  </div>
 </body>
 </html>
